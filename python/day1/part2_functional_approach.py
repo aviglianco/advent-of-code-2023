@@ -1,4 +1,5 @@
-# I KNOW THIS IS NOT FUNCTIONAL PROGRAMMING (AND I SHOULDN'T BE DOING FUNCTIONAL IN PYTHON), BUT I TRIED TO DO IT IN A FUNCTIONAL WAY
+# I KNOW THIS IS NOT FUNCTIONAL PROGRAMMING (AND I SHOULDN'T BE DOING FUNCTIONAL IN PYTHON),
+# BUT I TRIED TO APPROACH A SOLUTION IN A FUNCTIONAL WAY.
 
 import re
 from itertools import combinations
@@ -42,9 +43,7 @@ def find_digits_in_substring_list(substring: [str]) -> [str]:
     return digits
 
 
-def get_sum_of_calibration_values(file: 'TextIOWrapper') -> int:
-    sum_of_calibration_values = 0
-
+def get_sum_of_calibration_values(file) -> int:
     substrings = map(get_all_substrings, file.readlines())
     digits = map(find_digits_in_substring_list, substrings)
     calibration_value = map(get_calibration_value, digits)
@@ -53,7 +52,7 @@ def get_sum_of_calibration_values(file: 'TextIOWrapper') -> int:
     return sum_of_calibration_values
 
 
-def open_file_readonly(filepath: str) -> 'TextIOWrapper':
+def open_file_readonly(filepath: str):
     file = open(filepath, "r")
 
     return file
