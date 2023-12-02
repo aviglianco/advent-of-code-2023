@@ -45,17 +45,7 @@ def calculate_colors(game_report: str) -> (int, int, int):
     return max_red_cubes_drawn, max_green_cubes_drawn, max_blue_cubes_drawn
 
 
-def is_useful_set(colors: dict) -> bool:
-    return colors['red'] <= 12 and colors['green'] <= 13 and colors['blue'] <= 14
-
-
-def filter_useful_games(games: dict) -> [dict]:
-    useful_games = [key for key, value in games.items() if is_useful_set(value)]
-
-    return useful_games
-
-
-def calculate_games_results(file) -> dict:
+def calculate_games_results(file) -> dict[int, dict]:
     games_results = {}
 
     for game_report in file:
@@ -70,14 +60,27 @@ def calculate_games_results(file) -> dict:
     return games_results
 
 
+def calculate_power_of_sets(game_results: dict) -> [int]:
+    powers = []
+
+    for set_drawn in game_results.values():
+        product = 1
+
+        for color in set_drawn.values():
+            product *= color
+
+        powers.append(product)
+
+    return powers
+
+
 def main():
     with open(FILEPATH, 'r') as file:
         games_results = calculate_games_results(file)
+        power_of_sets = calculate_power_of_sets(games_results)
+        sum_of_powers = sum(power_of_sets)
 
-    useful_games = filter_useful_games(games_results)
-    sum_of_ids = sum(useful_games)
-
-    print(sum_of_ids)
+    print(sum_of_powers)
 
 
 if __name__ == '__main__':
